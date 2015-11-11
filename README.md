@@ -23,7 +23,7 @@ I got tired of checking the traffic every day before I left work. It was just an
    * `API_KEY`: Your api key obtained from google.
    * `USERNAME`: your email address, will be used to log in and send the text
    * `PW`: Your email password
-   * `TO`: Phone Number + gateway adress. SMS or MMS gateway can be found. [here](https://en.wikipedia.org/wiki/SMS_gateway#Use_with_email_clients)
+   * `TO`: Phone Number + gateway adress. SMS or MMS gateway can be found [here](https://en.wikipedia.org/wiki/SMS_gateway#Use_with_email_clients)
      * Example: `1234567@sms.att.net`
    * `FROM`: This can be set to anything, doesn't have an effect on the message
  3. Edit the URL to the locations of your choosing. Information can be found [here](https://developers.google.com/maps/documentation/directions/intro)
