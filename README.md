@@ -16,7 +16,7 @@ I got tired of checking the traffic every day before I left work. It was just an
 
 ###How do I run it?
 
-*Before you do anything*, you will need an api key from google. You can get one [here](https://developers.google.com/maps/documentation/directions/get-api-key).  
+**Before you do anything**, you will need an api key from google. You can get one [here](https://developers.google.com/maps/documentation/directions/get-api-key).  
 
  1. Clone this repository
  2. Enter your information
