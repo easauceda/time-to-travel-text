@@ -60,10 +60,9 @@ def main():
         PW = config['password']
         TO = config['recipient']
         URL = "{base_url}{origin}&destination={destination}{url_suffix}{api_key}".format(**config)
-        print(URL)
 
     # This is how the job is run on a schedule
-        schedule.every().day.at("23:17").do(getETA)
+        schedule.every().day.at("23:27").do(getETA)
 
         while True:
             schedule.run_pending()
