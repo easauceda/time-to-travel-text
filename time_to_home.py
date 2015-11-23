@@ -3,18 +3,28 @@ import json
 import time
 import schedule
 import smtplib
-
-with open('config-git.json', 'r') as conf:
-    config = json.load(conf)
+import os.path
 
 
-API_KEY = config['api_key']
-USERNAME = config['username']
-PW = config['password']
-TO = config['recipient']
-URL = """https://maps.googleapis.com/maps/api/directions/json?origin=228+Main+
-Street+Venice,+CA&destination=16320+E+Clovermead+St+Covina,+CA+91722
-&departure_time=now&key=""" + API_KEY
+def init_config():
+    dict_conf = {
+        "base_url": "https://maps.googleapis.com/maps/api/directions/json?origin=",
+        "url_suffix": "&departure_time=now&key="
+    }
+    dict_conf['username']= raw_input("Enter your email username: ")
+    dict_conf['password'] = raw_input("Enter your email password: ")
+    dict_conf['recipient'] = raw_input("Enter the phone number + gateway you would like to use: ")
+    print("NOTE: For the following, any spaces MUST be entered as '+'. ")
+    print("For example, 123 Main St, USA would be 123+Main+St,+USA")
+    dict_conf['origin'] = raw_input("Enter the location at which you begin (work, school, etc): ")
+    dict_conf['destination'] = raw_input("Enter the destination (home, school, etc): ")
+    dict_conf['api_key'] = raw_input("Finally, enter your google maps api key: ")
+
+    with open('config.json', 'w') as conf:
+        json.dump(dict_conf, conf)
+    conf.closed
+
+    print("Great! We're all set, run it again/")
 
 
 def getETA():
@@ -35,9 +45,32 @@ def send(message):
     except:
         print "something went wrong"
 
+def main():
+    # Ensure config has been created & stored, otherwise run init script
+    if (os.path.isfile('config.json')):
+        global USERNAME
+        global PW
+        global TO
+        global URL
 
-schedule.every().day.at("21:46").do(getETA)
+        with open('config.json', 'r') as conf:
+            config = json.load(conf)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+        USERNAME = config['username']
+        PW = config['password']
+        TO = config['recipient']
+        URL = "{base_url}{origin}&destination={destination}{url_suffix}{api_key}".format(**config)
+        print(URL)
+
+    # This is how the job is run on a schedule
+        schedule.every().day.at("23:17").do(getETA)
+
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+    else:
+        init_config()
+
+
+if __name__ == "__main__":
+    main()
